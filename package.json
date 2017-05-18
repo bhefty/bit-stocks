@@ -1,4 +1,6 @@
 {
+  "name": "bit-stocks",
+  "version": "1.0.0",
   "dependencies": {
     "next": "beta",
     "react": "^15.5.4",
