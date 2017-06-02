@@ -22,7 +22,7 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    const res = await fetch(`https://www.quandl.com/api/v3/datasets/WIKI/AAPL/data.json?api_key=oU7zMHe6Q6r4c3pyDEXj&start_date=2016-06-02&column_index=1`)
+    const res = await fetch(`https://www.quandl.com/api/v3/datasets/WIKI/AAPL/data.json?api_key=${process.env.REACT_APP_API_KEY}&start_date=2016-06-02&column_index=1`)
     const stock = await res.json()
     const stockData = stock.dataset_data.data.map(data => {
       return [Date.parse(data[0]), data[1]]
@@ -38,7 +38,7 @@ class App extends Component {
   }
 
   addStock = async (symbol) => {
-    const res = await fetch(`https://www.quandl.com/api/v3/datasets/WIKI/${symbol}/data.json?api_key=oU7zMHe6Q6r4c3pyDEXj&start_date=2016-06-02&column_index=1`)
+    const res = await fetch(`https://www.quandl.com/api/v3/datasets/WIKI/${symbol}/data.json?api_key=${process.env.REACT_APP_API_KEY}&start_date=2016-06-02&column_index=1`)
     const stock = await res.json()
     const stockData = stock.dataset_data.data.map(data => {
       return [Date.parse(data[0]), data[1]]
