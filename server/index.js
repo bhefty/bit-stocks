@@ -45,7 +45,6 @@ io.on('connection', socket => {
   // Listen for which company to fetch stock data
   socket.on('add company', companySymbol => {
     fetchStockData(companySymbol).then((data) => {
-      console.log('data', data)
       io.emit('company stock', {
         name: companySymbol,
         data,
