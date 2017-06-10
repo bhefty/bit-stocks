@@ -1,18 +1,8 @@
 import React, { Component } from 'react'
-import fetch from 'isomorphic-fetch'
 import io from 'socket.io-client'
 import logo from './logo.svg'
 import './App.css'
 import Stock from './components/Stock'
-
-function getRandomColor () {
-  var letters = '0123456789ABCDEF'
-  var color = '#'
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)]
-  }
-  return color
-}
 
 class App extends Component {
   constructor () {
