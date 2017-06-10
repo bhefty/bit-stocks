@@ -2,6 +2,9 @@
   "name": "bit-stocks",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": ">= 8.0.0"
+  },
   "scripts": {
     "dev": "concurrently \"cd react-ui && npm run start\" \"npm run watch:server\"",
     "watch:server": "nodemon server",
