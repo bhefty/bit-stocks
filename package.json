@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "engines": {
-    "node": "7.4.x"
+    "node": "8.1.x"
   },
   "scripts": {
     "dev": "concurrently \"cd react-ui && npm run start\" \"npm run watch:server\"",

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "7.4.x"
+    "node": "8.1.x"
   },
   "dependencies": {
     "highcharts": "^5.0.12",
