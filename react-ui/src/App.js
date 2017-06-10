@@ -21,44 +21,13 @@ class App extends Component {
       series: [],
       companies: []
     }
-    this.addStock = this.addStock.bind(this)
   }
 
   async componentDidMount () {
     this.socket = io('/')
     this.socket.on('company stock', company => {
-      console.log('got response:', company)
-      this.setState({ companies: [company, ...this.state.companies] })
+      this.setState({ series: [company, ...this.state.series] })
     })
-    const res = await fetch(`https://www.quandl.com/api/v3/datasets/WIKI/AAPL/data.json?api_key=${process.env.REACT_APP_API_KEY}&start_date=2016-06-02&column_index=1`)
-    const stock = await res.json()
-    const stockData = stock.dataset_data.data.map(data => {
-      return [Date.parse(data[0]), data[1]]
-    }).reverse()
-    const seriesState = this.state.series
-    seriesState.push({
-      name: 'AAPL',
-      data: stockData,
-      tooltop: { valueDecimals: 2 },
-      color: getRandomColor()
-    })
-    this.setState({ series: seriesState })
-  }
-
-  async addStock (symbol) {
-    const res = await fetch(`https://www.quandl.com/api/v3/datasets/WIKI/${symbol}/data.json?api_key=${process.env.REACT_APP_API_KEY}&start_date=2016-06-02&column_index=1`)
-    const stock = await res.json()
-    const stockData = stock.dataset_data.data.map(data => {
-      return [Date.parse(data[0]), data[1]]
-    }).reverse()
-    const seriesState = this.state.series
-    seriesState.push({
-      name: symbol,
-      data: stockData,
-      tooltop: { valueDecimals: 2 },
-      color: getRandomColor()
-    })
-    this.setState({ series: seriesState })
   }
 
   render () {
@@ -73,14 +42,25 @@ class App extends Component {
         </p>
         <Stock series={this.state.series} />
 
-        <button onClick={() => this.addStock('MSFT')}>Add MSFT</button>
-        <button onClick={() => this.addStock('MMM')}>Add MMM</button>
-        <button onClick={() => this.addStock('GOOGL')}>Add GOOGL</button>
-
         <button onClick={() => {
           const companySymbol = 'MMM'
           this.socket.emit('add company', companySymbol)
-        }}>Test socket</button>
+        }}>Add 3M</button>
+
+        <button onClick={() => {
+          const companySymbol = 'MSFT'
+          this.socket.emit('add company', companySymbol)
+        }}>Add Microsoft</button>
+
+        <button onClick={() => {
+          const companySymbol = 'GOOGL'
+          this.socket.emit('add company', companySymbol)
+        }}>Add Google</button>
+
+        <button onClick={() => {
+          const companySymbol = 'AAPL'
+          this.socket.emit('add company', companySymbol)
+        }}>Add Apple</button>
 
       </div>
     )
