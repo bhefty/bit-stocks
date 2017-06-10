@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "concurrently \"cd react-ui && npm run start\" \"npm run watch:server\"",
     "watch:server": "nodemon server",
-    "start": "node server",
+    "start": "node --harmony-async-await server",
     "heroku-postbuild": "cd react-ui/ && npm install --only=dev && npm install && npm run build",
     "lint": "./node_modules/.bin/standard --verbose | snazzy",
     "lint-fix": "./node_modules/.bin/standard --fix"
