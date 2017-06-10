@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // TODO:
 // move fetchStockData to util function
 // constsruct full URI from a different function
-const fetchStockData = async (symbol) => {
+async function fetchStockData (symbol) {
   const res = await fetch(`${API_URI}/${symbol}/data.json?api_key=${API_KEY}&start_date=2016-06-02&column_index=1`)
   const stock = await res.json()
   const stockData = stock.dataset_data.data.map(data => {
