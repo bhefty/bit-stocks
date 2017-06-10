@@ -15,11 +15,14 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 io.on('connection', socket => {
   console.log('user connected')
-  socket.on('company', company => {
-    console.log('company: ' + company)
-    io.emit('company info', {
-      name: 'FreeCodeCamp',
-      value: 'Priceless'
+
+  // Listen for which company to fetch stock data
+  socket.on('add company', companySymbol => {
+    console.log('company symbol: ' + companySymbol)
+    io.emit('company stock', {
+      name: '3M',
+      symbol: 'MMM',
+      value: 'ALoT'
     })
   })
 })

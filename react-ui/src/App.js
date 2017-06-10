@@ -26,7 +26,7 @@ class App extends Component {
 
   async componentDidMount () {
     this.socket = io('/')
-    this.socket.on('company info', company => {
+    this.socket.on('company stock', company => {
       console.log('got response:', company)
       this.setState({ companies: [company, ...this.state.companies] })
     })
@@ -78,8 +78,8 @@ class App extends Component {
         <button onClick={() => this.addStock('GOOGL')}>Add GOOGL</button>
 
         <button onClick={() => {
-          const company = 'FCC'
-          this.socket.emit('company', company)
+          const companySymbol = 'MMM'
+          this.socket.emit('add company', companySymbol)
         }}>Test socket</button>
 
       </div>
