@@ -5,6 +5,7 @@ const http = require('http')
 const bodyParser = require('body-parser')
 const socketIo = require('socket.io')
 const fetch = require('isomorphic-fetch')
+const storage = require('node-persist')
 
 const app = express()
 const server = http.createServer(app)
@@ -39,19 +40,59 @@ const getRandomColor = () => {
   return color
 }
 
+// Initialize node-persist
+storage.init()
+
 io.on('connection', socket => {
   console.log('user connected')
+
+  socket.on('clear data', () => {
+    storage.clear()
+  })
+
+  socket.on('get initial data', () => {
+    // Check if data has been persisted
+    if (storage.length() > 0) {
+      console.log('Data exists in storage')
+      const storageValues = storage.values()
+      storageValues.map(company => {
+        console.log(`Fetching updated data for: ${company.name}`)
+        fetchStockData(company.name).then(data => {
+          const companyData = {
+            name: company.name,
+            data,
+            tooltip: { valueDecimals: 2 },
+            color: getRandomColor()
+          }
+
+          // Send initial stock data to front-end
+          io.emit('company stock', companyData)
+        })
+      })
+    }
+  })
 
   // Listen for which company to fetch stock data
   socket.on('add company', companySymbol => {
     fetchStockData(companySymbol).then((data) => {
-      io.emit('company stock', {
+      // Create object with company information
+      const companyData = {
         name: companySymbol,
         data,
         tooltip: { valueDecimals: 2 },
         color: getRandomColor()
-      })
+      }
+
+      // Send company stock data back to front-end
+      io.emit('company stock', companyData)
+
+      // Persist new company data to list
+      storage.setItem(companyData.name, companyData)
     })
+  })
+
+  socket.on('get series data', () => {
+    storage.getItem('seriesData').then(value => console.log('value is:', value))
   })
 })
 

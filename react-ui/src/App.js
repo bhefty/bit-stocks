@@ -15,6 +15,7 @@ class App extends Component {
 
   async componentDidMount () {
     this.socket = io('/')
+    this.socket.emit('get initial data')
     this.socket.on('company stock', company => {
       this.setState({ series: [company, ...this.state.series] })
     })
@@ -26,6 +27,9 @@ class App extends Component {
         <div className='App-header'>
           <img src={logo} className='App-logo' alt='logo' />
           <h2>Welcome to React</h2>
+          <button onClick={() => {
+            this.socket.emit('clear data')
+          }}>Clear persisted data</button>
         </div>
         <p className='App-intro'>
           To get started, edit <code>src/App.js</code> and save to reload.
@@ -51,6 +55,10 @@ class App extends Component {
           const companySymbol = 'AAPL'
           this.socket.emit('add company', companySymbol)
         }}>Add Apple</button>
+
+        <button onClick={() => {
+          this.socket.emit('get series data')
+        }}>Get series data on server</button>
 
       </div>
     )
