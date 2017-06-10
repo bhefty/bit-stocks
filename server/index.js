@@ -21,8 +21,8 @@ io.on('connection', socket => {
     console.log('company symbol: ' + companySymbol)
     io.emit('company stock', {
       name: '3M',
-      symbol: 'MMM',
-      value: 'ALoT'
+      symbol: companySymbol,
+      value: 'Billion who knows?'
     })
   })
 })
