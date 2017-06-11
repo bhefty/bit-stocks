@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 if (process.env.NODE_ENV !== 'test') {
   storage.init()
 } else {
-  storage.init({ dir: 'tests/node-persist-test/' })
+  storage.init({ dir: 'tests/.node-persist-test/' })
 }
 
 io.on('connection', socket => {

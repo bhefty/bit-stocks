@@ -10,7 +10,7 @@ describe('Server', () => {
     let receiver
     beforeEach(done => {
       // setup test storage
-      storage.init({ dir: 'tests/node-persist-test/' })
+      storage.init({ dir: 'tests/.node-persist-test/' })
 
       // start the io server
       server.listen(5000)
