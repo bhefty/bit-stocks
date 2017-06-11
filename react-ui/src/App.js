@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import io from 'socket.io-client'
+import RaisedButton from 'material-ui/RaisedButton'
 import logo from './logo.svg'
 import './App.css'
 import Stock from './components/Stock'
@@ -33,9 +34,12 @@ class App extends Component {
         <div className='App-header'>
           <img src={logo} className='App-logo' alt='logo' />
           <h2>Welcome to React</h2>
-          <button onClick={() => {
-            this.socket.emit('clear data')
-          }}>Clear persisted data</button>
+          <RaisedButton
+            label='Clear persisted data'
+            onClick={() => {
+              this.socket.emit('clear data')
+            }
+          } />
         </div>
         <p className='App-intro'>
           To get started, edit <code>src/App.js</code> and save to reload.
