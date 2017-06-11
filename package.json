@@ -16,7 +16,11 @@
     "lint-fix": "./node_modules/.bin/standard --fix",
     "precommit-msg": "echo 'Pre-commit checks...' && exit 0"
   },
-  "pre-commit": [ "precommit-msg", "lint", "test" ],
+  "pre-commit": [
+    "precommit-msg",
+    "lint",
+    "test"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bhefty/bit-stocks.git"
@@ -40,6 +44,7 @@
     "chai": "^4.0.2",
     "concurrently": "^3.4.0",
     "mocha": "^3.4.2",
+    "nock": "^9.0.13",
     "nodemon": "^1.11.0",
     "pre-commit": "^1.2.2",
     "snazzy": "^7.0.0",
