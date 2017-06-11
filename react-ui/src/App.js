@@ -55,11 +55,6 @@ class App extends Component {
           const companySymbol = 'AAPL'
           this.socket.emit('add company', companySymbol)
         }}>Add Apple</button>
-
-        <button onClick={() => {
-          this.socket.emit('get series data')
-        }}>Get series data on server</button>
-
       </div>
     )
   }

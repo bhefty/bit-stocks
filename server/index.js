@@ -78,10 +78,6 @@ io.on('connection', socket => {
       storage.setItem(companyData.name, companyData)
     })
   })
-
-  socket.on('get series data', () => {
-    storage.getItem('seriesData').then(value => console.log('value is:', value))
-  })
 })
 
 // All remaining requests return the React app so it can handle routing
