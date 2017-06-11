@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-class AddStock extends Component { 
+class AddStock extends Component {
   constructor (props) {
     super(props)
     this.state = { value: '' }

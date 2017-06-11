@@ -22,7 +22,7 @@ class App extends Component {
       this.setState({ series: [company, ...this.state.series] })
     })
   }
-  
+
   handleAddStock = (value) => {
     this.socket.emit('add company', value)
   }

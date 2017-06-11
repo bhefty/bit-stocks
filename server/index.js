@@ -31,16 +31,16 @@ io.on('connection', socket => {
   })
 
   socket.on('clear data', () => {
-    storage.clear()
+    storage.clear().then(() => {
+      io.emit('clear data', { message: 'Data has been cleared' })
+    })
   })
 
   socket.on('get initial data', () => {
     // Check if data has been persisted
     if (storage.length() > 0) {
-      console.log('Data exists in storage')
       const storageValues = storage.values()
       storageValues.map(company => {
-        console.log(`Fetching updated data for: ${company.name}`)
         // Get updated stock data for company
         fetchStockData(company.name).then(data => {
           const companyData = {
@@ -55,7 +55,6 @@ io.on('connection', socket => {
         })
       })
     } else {
-      console.log('No data exists in storage')
       io.emit('get initial data', { message: 'There was was no existing data' })
     }
   })

@@ -44,6 +44,19 @@ describe('Server', () => {
       })
     })
 
+    describe('Event: clear data', () => {
+      it('should clear storage for persisted data', (done) => {
+        storage.setItem('test-data', 'test-value').then(() => {
+          sender.emit('clear data')
+          receiver.on('clear data', msg => {
+            expect(msg.message).to.equal('Data has been cleared')
+            expect(storage.length()).to.equal(0)
+            done()
+          })
+        })
+      })
+    })
+
     describe('Event: get initial data', () => {
       it('should emit stored data to the client if it exists', (done) => {
         const testData = {
