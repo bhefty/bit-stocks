@@ -46,6 +46,10 @@ storage.init()
 io.on('connection', socket => {
   console.log('user connected')
 
+  socket.on('test connection', msg => {
+    io.emit('test connection', msg)
+  })
+
   socket.on('clear data', () => {
     storage.clear()
   })
@@ -104,3 +108,5 @@ app.get('*', (req, res) => {
 server.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`)
 })
+
+module.exports = server
