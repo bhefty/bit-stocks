@@ -4,7 +4,7 @@ node_js:
 env:
   - CXX=g++-4.8
 before_script:
-  - npm install -g react-scripts
+  - yarn install
 addons:
   apt:
     sources:
