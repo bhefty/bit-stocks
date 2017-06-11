@@ -22,7 +22,7 @@ describe('Server', () => {
       // disconnect io clients after each test
       sender.disconnect()
       receiver.disconnect()
-           
+
       done()
     })
 

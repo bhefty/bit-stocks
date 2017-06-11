@@ -9,12 +9,14 @@
     "dev": "concurrently \"cd react-ui && npm run start\" \"npm run watch:server\"",
     "watch:server": "nodemon server",
     "start": "node --harmony-async-await server",
-    "test": "mocha tests --recursive && cd react-ui/ && npm run test",
+    "test": "mocha tests --recursive && cd react-ui/ && CI=true npm run test",
     "test:watch": "mocha tests  --recursive -w",
     "heroku-postbuild": "cd react-ui/ && npm install --only=dev && npm install && npm run build",
     "lint": "./node_modules/.bin/standard --verbose | snazzy",
-    "lint-fix": "./node_modules/.bin/standard --fix"
+    "lint-fix": "./node_modules/.bin/standard --fix",
+    "precommit-msg": "echo 'Pre-commit checks...' && exit 0"
   },
+  "pre-commit": [ "precommit-msg", "lint", "test" ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bhefty/bit-stocks.git"
@@ -39,6 +41,7 @@
     "concurrently": "^3.4.0",
     "mocha": "^3.4.2",
     "nodemon": "^1.11.0",
+    "pre-commit": "^1.2.2",
     "snazzy": "^7.0.0",
     "standard": "^10.0.2"
   },
