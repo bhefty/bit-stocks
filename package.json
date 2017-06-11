@@ -9,7 +9,7 @@
     "dev": "concurrently \"cd react-ui && npm run start\" \"npm run watch:server\"",
     "watch:server": "nodemon server",
     "start": "node --harmony-async-await server",
-    "test": "mocha tests --recursive && cd react-ui/ && CI=true npm run test",
+    "test": "NODE_ENV=test mocha tests --recursive && cd react-ui/ && CI=true npm run test",
     "test:watch": "mocha tests  --recursive -w",
     "heroku-postbuild": "cd react-ui/ && npm install --only=dev && npm install && npm run build",
     "lint": "./node_modules/.bin/standard --verbose | snazzy",
