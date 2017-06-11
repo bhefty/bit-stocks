@@ -14,14 +14,16 @@
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
+    "enzyme": "^2.8.2",
     "react-scripts": "1.0.7",
+    "react-test-renderer": "^15.5.4",
     "snazzy": "^7.0.0",
     "standard": "^10.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "standard --env jest --verbose | snazzy && react-scripts test --env=jsdom",
+    "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "./node_modules/.bin/standard --verbose | snazzy",
     "lint-fix": "./node_modules/.bin/standard --fix"
