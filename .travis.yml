@@ -4,7 +4,7 @@ node_js:
 env:
   - CXX=g++-4.8
 before_script:
-  - yarn install && cd react-ui/ && yarn install
+  - yarn install && cd react-ui/ && yarn install && cd ../
 addons:
   apt:
     sources:
