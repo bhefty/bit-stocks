@@ -42,26 +42,6 @@ class App extends Component {
         </p>
         <Stock series={this.state.series} />
 
-        <button onClick={() => {
-          const companySymbol = 'MMM'
-          this.socket.emit('add company', companySymbol)
-        }}>Add 3M</button>
-
-        <button onClick={() => {
-          const companySymbol = 'MSFT'
-          this.socket.emit('add company', companySymbol)
-        }}>Add Microsoft</button>
-
-        <button onClick={() => {
-          const companySymbol = 'GOOGL'
-          this.socket.emit('add company', companySymbol)
-        }}>Add Google</button>
-
-        <button onClick={() => {
-          const companySymbol = 'AAPL'
-          this.socket.emit('add company', companySymbol)
-        }}>Add Apple</button>
-
         <AddStock onSubmit={this.handleAddStock} />
       </div>
     )
