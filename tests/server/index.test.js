@@ -69,5 +69,34 @@ describe('Server', () => {
         })
       })
     })
+
+    describe('Event: add company', () => {
+      it('should emit company stock to client', (done) => {
+        const companySymbol = 'MMM'
+        sender.emit('add company', companySymbol)
+        receiver.on('company stock', companyData => {
+          expect(companyData.name).to.eql(companySymbol)
+          expect(companyData.data).to.have.lengthOf.at.least(1)
+          done()
+        })
+      })
+
+      it('should store company stock in storage to persist data', (done) => {
+        const testData = {
+          name: 'AAPL',
+          data: [[1496793600000, 155.02], [1496880000000, 155.25], [1496966400000, 155.19]],
+          tooltip: { valueDecimals: 2 },
+          color: '#93758F'
+        }
+        sender.emit('add company', testData.name)
+        receiver.on('company stock', () => {
+          storage.getItem(testData.name).then(val => {
+            expect(val.name).to.eql('AAPL')
+            expect(val.data).to.have.lengthOf.at.least(1)
+            done()
+          })
+        })
+      })
+    })
   })
 })
