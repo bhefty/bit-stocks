@@ -3,6 +3,7 @@ import io from 'socket.io-client'
 import logo from './logo.svg'
 import './App.css'
 import Stock from './components/Stock'
+import AddStock from './components/AddStock'
 
 class App extends Component {
   constructor () {
@@ -11,6 +12,7 @@ class App extends Component {
       series: [],
       companies: []
     }
+    this.handleAddStock = this.handleAddStock.bind(this)
   }
 
   async componentDidMount () {
@@ -19,6 +21,10 @@ class App extends Component {
     this.socket.on('company stock', company => {
       this.setState({ series: [company, ...this.state.series] })
     })
+  }
+  
+  handleAddStock = (value) => {
+    this.socket.emit('add company', value)
   }
 
   render () {
@@ -55,6 +61,8 @@ class App extends Component {
           const companySymbol = 'AAPL'
           this.socket.emit('add company', companySymbol)
         }}>Add Apple</button>
+
+        <AddStock onSubmit={this.handleAddStock} />
       </div>
     )
   }
