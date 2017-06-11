@@ -2,6 +2,9 @@
 node_modules
 npm-debug.log
 
+# Persited data
+.node-persist
+
 # Local development
 config/
 *.env
