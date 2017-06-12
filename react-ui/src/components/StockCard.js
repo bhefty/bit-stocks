@@ -1,11 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Card, CardHeader } from 'material-ui/Card'
 
 const StockCard = props => {
   return (
-    <div>
-      <h1>test</h1>
-    </div>
+    <Card>
+      <CardHeader
+        title={props.name}
+        subtitle='Temporary subtitle'
+      />
+    </Card>
   )
 }
 

@@ -5,6 +5,7 @@ import logo from './logo.svg'
 import './App.css'
 import Stock from './components/Stock'
 import AddStock from './components/AddStock'
+import StockCard from './components/StockCard'
 
 class App extends Component {
   constructor () {
@@ -45,8 +46,12 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         <Stock series={this.state.series} />
-
         <AddStock onSubmit={this.handleAddStock} />
+        {this.state.series.length > 0 &&
+          this.state.series.map(company => {
+            return <StockCard name={company.name} />
+          })
+        }
       </div>
     )
   }
