@@ -1,29 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { GridList, GridTile } from 'material-ui/GridList'
 import CloseIcon from 'material-ui/svg-icons/navigation/close'
 import IconButton from 'material-ui/IconButton'
+
 import './Card.css'
 
 const StockCard = props => {
   return (
-    <div className='grid-wrapper'>
-      <GridList className='cards-container' cols={5} cellHeight={100}>
-        {props.series.map((company, idx) => {
-          return (
-            <GridTile
-              key={idx}
-              style={{ backgroundColor: company.color }}
-              title={company.name.toUpperCase()}
-              actionIcon={
+    <div className='stock-grid-wrapper'>
+      {props.series.map((company, idx) => {
+        return (
+          <div key={idx} className='stock-card' style={{ backgroundColor: company.color }}>
+            <div className='stock-card-content'>
+              <div className='stock-card-name'>{company.name.toUpperCase()}</div>
+              <div className='stock-card-action'>
                 <IconButton onTouchTap={() => props.deleteStock(company)}>
-                  <CloseIcon color='white' />
+                  <CloseIcon color='#fff' />
                 </IconButton>
-              }
-            />
-          )
-        })}
-      </GridList>
+              </div>
+            </div>
+          </div>
+        )
+      })}
     </div>
   )
 }
