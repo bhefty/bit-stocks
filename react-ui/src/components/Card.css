@@ -1,0 +1,12 @@
+.grid-wrapper {
+  margin-top: 4em;
+  display: flex;
+  flex-wrap: row wrap;
+  justify-content: space-around;
+}
+
+.cards-container {
+  margin-top: 50px;
+  width: 100%;
+  overflow-y: auto;
+}

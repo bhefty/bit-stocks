@@ -34,24 +34,25 @@ class App extends Component {
       <div className='App'>
         <div className='App-header'>
           <img src={logo} className='App-logo' alt='logo' />
-          <h2>Welcome to React</h2>
+          <h2>Welcome to Bit-Stocks</h2>
           <RaisedButton
             label='Clear persisted data'
+            backgroundColor='red'
+            labelColor='white'
             onClick={() => {
               this.socket.emit('clear data')
             }
           } />
         </div>
-        <p className='App-intro'>
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <Stock series={this.state.series} />
-        <AddStock onSubmit={this.handleAddStock} />
-        {this.state.series.length > 0 &&
-          this.state.series.map(company => {
-            return <StockCard name={company.name} />
-          })
-        }
+        <div className='container'>
+          <div className='chart-container'>
+            <Stock series={this.state.series} />
+          </div>
+          <AddStock onSubmit={this.handleAddStock} />
+          {this.state.series.length > 0 &&
+            <StockCard series={this.state.series} />
+          }
+        </div>
       </div>
     )
   }

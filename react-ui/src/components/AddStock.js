@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Card, CardHeader } from 'material-ui/Card'
+import TextField from 'material-ui/TextField'
+import RaisedButton from 'material-ui/RaisedButton'
+import './Card.css'
 
 class AddStock extends Component {
   constructor (props) {
@@ -21,10 +25,16 @@ class AddStock extends Component {
 
   render () {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input type='text' placeholder='Stock code' value={this.state.value} onChange={this.handleChange} />
-        <button type='submit'>Add</button>
-      </form>
+      <Card className='card'>
+        <CardHeader
+          title='Track a new company'
+          subtitle='Please enter a valid company symbol'
+        />
+        <form onSubmit={this.handleSubmit}>
+          <TextField hintText='Stock code' value={this.state.value} onChange={this.handleChange} />
+          <RaisedButton type='submit' label='Add' backgroundColor='#a4c639' labelColor='#fff' />
+        </form>
+      </Card>
     )
   }
 }
