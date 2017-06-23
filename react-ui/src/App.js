@@ -32,7 +32,11 @@ class App extends Component {
       }
     })
     this.socket.on('company stock', company => {
-      this.setState({ series: [company, ...this.state.series] })
+      const seriesState = this.state.series
+      // Check if data already exists in state before pushing to client
+      if (seriesState.findIndex(stock => stock.name === company.name) === -1) {
+        this.setState({ series: [company, ...this.state.series] })
+      }
     })
   }
 
