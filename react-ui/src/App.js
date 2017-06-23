@@ -15,11 +15,22 @@ class App extends Component {
       companies: []
     }
     this.handleAddStock = this.handleAddStock.bind(this)
+    this.handleRemoveStock = this.handleRemoveStock.bind(this)
   }
 
   async componentDidMount () {
     this.socket = io('/')
     this.socket.emit('get initial data')
+    this.socket.on('remove company', response => {
+      const seriesState = this.state.series
+      const removeItem = seriesState.findIndex((stock) => stock.name === response.company.name)
+      if (removeItem > -1) {
+        seriesState.splice(removeItem, 1)
+        this.setState({ series: seriesState })
+      } else {
+        console.error('Error occurred in finding the company to remove.')
+      }
+    })
     this.socket.on('company stock', company => {
       this.setState({ series: [company, ...this.state.series] })
     })
@@ -27,6 +38,10 @@ class App extends Component {
 
   handleAddStock = (value) => {
     this.socket.emit('add company', value)
+  }
+
+  handleRemoveStock = (company) => {
+    this.socket.emit('remove company', company)
   }
 
   render () {
@@ -50,7 +65,10 @@ class App extends Component {
           </div>
           <AddStock onSubmit={this.handleAddStock} />
           {this.state.series.length > 0 &&
-            <StockCard series={this.state.series} />
+            <StockCard
+              series={this.state.series}
+              deleteStock={this.handleRemoveStock}
+            />
           }
         </div>
       </div>

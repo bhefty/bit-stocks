@@ -10,7 +10,18 @@ const StockCard = props => {
     <div className='grid-wrapper'>
       <GridList className='cards-container' cols={5} cellHeight={100}>
         {props.series.map((company, idx) => {
-          return <GridTile style={{ backgroundColor: company.color }} key={idx} title={company.name.toUpperCase()} actionIcon={<IconButton><CloseIcon color='white' /></IconButton>} />
+          return (
+            <GridTile
+              key={idx}
+              style={{ backgroundColor: company.color }}
+              title={company.name.toUpperCase()}
+              actionIcon={
+                <IconButton onTouchTap={() => props.deleteStock(company)}>
+                  <CloseIcon color='white' />
+                </IconButton>
+              }
+            />
+          )
         })}
       </GridList>
     </div>
@@ -18,7 +29,8 @@ const StockCard = props => {
 }
 
 StockCard.propTypes = {
-  series: PropTypes.object.isRequired
+  series: PropTypes.array.isRequired,
+  deleteStock: PropTypes.func.isRequired
 }
 
 export default StockCard

@@ -59,11 +59,17 @@ describe('Server', () => {
 
     describe('Event: remove company', () => {
       it('should remove company from storage', (done) => {
-        const companySymbol = 'MMM'
-        storage.setItem(companySymbol, 'test data')
-        sender.emit('remove company', companySymbol)
-        receiver.on('remove company', msg => {
-          expect(msg.message).to.equal(`${companySymbol} has been cleared`)
+        const testData = {
+          name: 'AAPL',
+          data: [[1496793600000, 155.02], [1496880000000, 155.25], [1496966400000, 155.19]],
+          tooltip: { valueDecimals: 2 },
+          color: '#93758F'
+        }
+        storage.setItem(testData.name, testData.name)
+        sender.emit('remove company', testData)
+        receiver.on('remove company', response => {
+          expect(response.message).to.equal(`${testData.name} has been cleared`)
+          expect(response.company).to.eql(testData)
           expect(storage.length()).to.equal(0)
           done()
         })
