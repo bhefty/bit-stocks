@@ -18,7 +18,7 @@ const StockCard = props => {
 }
 
 StockCard.propTypes = {
-  name: PropTypes.string.isRequired
+  series: PropTypes.object.isRequired
 }
 
 export default StockCard
