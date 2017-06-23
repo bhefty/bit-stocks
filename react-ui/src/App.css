@@ -1,22 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
 .App-header {
-  background-color: #222;
-  height: 150px;
+  background: url('logo.svg') no-repeat center;
+  background-size: contain;
+  background-color: #114b5f;
+  height: 80px;
   padding: 20px;
-  color: white;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  color: #fcfcfc;
+  font-family: 'Raleway', sans-serif;
 }
 
 .container {

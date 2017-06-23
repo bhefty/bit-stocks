@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import io from 'socket.io-client'
 import FlatButton from 'material-ui/FlatButton'
-import logo from './logo.svg'
 import './App.css'
 import Stock from './components/Stock'
 import AddStock from './components/AddStock'
@@ -63,8 +62,7 @@ class App extends Component {
     return (
       <div className='App'>
         <div className='App-header'>
-          <img src={logo} className='App-logo' alt='logo' />
-          <h2>Welcome to Bit-Stocks</h2>
+          <h1>Welcome to Bit-Stocks</h1>
         </div>
         <div className='container'>
           <div className='chart-container'>
