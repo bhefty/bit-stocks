@@ -57,6 +57,19 @@ describe('Server', () => {
       })
     })
 
+    describe('Event: remove company', () => {
+      it('should remove company from storage', (done) => {
+        const companySymbol = 'MMM'
+        storage.setItem(companySymbol, 'test data')
+        sender.emit('remove company', companySymbol)
+        receiver.on('remove company', msg => {
+          expect(msg.message).to.equal(`${companySymbol} has been cleared`)
+          expect(storage.length()).to.equal(0)
+          done()
+        })
+      })
+    })
+
     describe('Event: get initial data', () => {
       it('should emit stored data to the client if it exists', (done) => {
         const testData = {

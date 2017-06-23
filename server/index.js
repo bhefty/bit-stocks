@@ -36,6 +36,12 @@ io.on('connection', socket => {
     })
   })
 
+  socket.on('remove company', companySymbol => {
+    storage.removeItem(companySymbol).then(() => {
+      io.emit('remove company', { message: `${companySymbol} has been cleared` })
+    })
+  })
+
   socket.on('get initial data', () => {
     // Check if data has been persisted
     if (storage.length() > 0) {
