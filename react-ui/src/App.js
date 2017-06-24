@@ -42,10 +42,15 @@ class App extends Component {
 
     // Listen for new company being added
     this.socket.on('company stock', company => {
-      const seriesState = this.state.series
-      // Check if data already exists in state before pushing to client
-      if (seriesState.findIndex(stock => stock.name === company.name) === -1) {
-        this.setState({ series: [company, ...this.state.series] })
+      // Only add company if correct symbol was given
+      if (!company.data.message) {
+        const seriesState = this.state.series
+        // Check if data already exists in state before pushing to client
+        if (seriesState.findIndex(stock => stock.name === company.name) === -1) {
+          this.setState({ series: [company, ...this.state.series] })
+        }
+      } else {
+        console.log(company.data.message)
       }
     })
   }
