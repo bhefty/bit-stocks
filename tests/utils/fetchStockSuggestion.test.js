@@ -32,7 +32,7 @@ describe('fetchStockSuggestion', () => {
     nock('http://d.yimg.com')
       .get('/aq/autoc?query=facebook&region=US&lang=en-US')
       .reply(200, fetchResponse)
-    
+
     nock('http://d.yimg.com')
       .get('/aq/autoc?query=jibberishjabberish&region=US&lang=en-US')
       .reply(404, fetchError)
