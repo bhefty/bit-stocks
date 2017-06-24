@@ -16,7 +16,7 @@ const fetchStockData = async (symbol) => {
     }).reverse()
     return stockData
   } catch (e) {
-    return { message: 'You have submitted an incorrect company symbol.' }
+    return { message: 'Please verify that a correct company symbol was entered.' }
   }
 }
 

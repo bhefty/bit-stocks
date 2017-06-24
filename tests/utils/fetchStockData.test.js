@@ -31,7 +31,7 @@ describe('fetchStockData', () => {
       }
     }
 
-    const fetchError = { message: 'You have submitted an incorrect company symbol.' }
+    const fetchError = { message: 'Please verify that a correct company symbol was entered..' }
 
     nock(API_URI)
       .get(`/GOOGL/data.json?api_key=${API_KEY}&start_date=2016-06-02&column_index=1`)
@@ -56,7 +56,7 @@ describe('fetchStockData', () => {
   }))
 
   it('should return an error message if an incorrect symbol is given', mochaAsync(async () => {
-    const expectedResponse = { message: 'You have submitted an incorrect company symbol.' }
+    const expectedResponse = { message: 'Please verify that a correct company symbol was entered.' }
     const response = await fetchStockData('MT')
     expect(response.message).to.equal(expectedResponse.message)
   }))
