@@ -5,16 +5,20 @@ import './App.css'
 import Stock from './components/Stock'
 import AddStock from './components/AddStock'
 import StockCard from './components/StockCard'
+import ErrorSymbol from './components/ErrorSymbol'
 
 class App extends Component {
   constructor () {
     super()
     this.state = {
       series: [],
-      companies: []
+      companies: [],
+      openDialog: false
     }
     this.handleAddStock = this.handleAddStock.bind(this)
     this.handleRemoveStock = this.handleRemoveStock.bind(this)
+    this.handleCloseDialog = this.handleCloseDialog.bind(this)
+    this.handleOpenDialog = this.handleOpenDialog.bind(this)
   }
 
   async componentDidMount () {
@@ -50,7 +54,7 @@ class App extends Component {
           this.setState({ series: [company, ...this.state.series] })
         }
       } else {
-        console.log(company.data.message)
+        this.handleOpenDialog()
       }
     })
   }
@@ -61,6 +65,14 @@ class App extends Component {
 
   handleRemoveStock = (company) => {
     this.socket.emit('remove company', company)
+  }
+
+  handleOpenDialog = () => {
+    this.setState({ openDialog: true })
+  }
+
+  handleCloseDialog = () => {
+    this.setState({ openDialog: false })
   }
 
   render () {
@@ -91,6 +103,9 @@ class App extends Component {
             </div>
           }
         </div>
+        {this.state.openDialog &&
+          <ErrorSymbol open={this.state.openDialog} closeDialog={this.handleCloseDialog} />
+        }
       </div>
     )
   }
