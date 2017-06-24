@@ -81,9 +81,11 @@ class App extends Component {
           <h1>Welcome to Bit-Stocks</h1>
         </div>
         <div className='container'>
-          <div className='chart-container'>
-            <Stock series={this.state.series} />
-          </div>
+          {this.state.series.length > 0 &&
+            <div className='chart-container'>
+              <Stock series={this.state.series} />
+            </div>
+          }
           <AddStock onSubmit={this.handleAddStock} />
           {this.state.series.length > 0 &&
             <div>

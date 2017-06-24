@@ -19,7 +19,7 @@ class AddStock extends Component {
 
   handleSubmit (event) {
     event.preventDefault()
-    this.props.onSubmit(this.state.value)
+    this.props.onSubmit(this.state.value.toUpperCase())
     this.setState({ value: '' })
   }
 
