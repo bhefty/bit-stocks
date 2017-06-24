@@ -6,6 +6,7 @@ import Stock from './components/Stock'
 import AddStock from './components/AddStock'
 import StockCard from './components/StockCard'
 import ErrorSymbol from './components/ErrorSymbol'
+import Footer from './components/Footer'
 
 class App extends Component {
   constructor () {
@@ -54,6 +55,7 @@ class App extends Component {
           this.setState({ series: [company, ...this.state.series] })
         }
       } else {
+        console.log('else')
         this.handleOpenDialog()
       }
     })
@@ -92,7 +94,6 @@ class App extends Component {
                 series={this.state.series}
                 deleteStock={this.handleRemoveStock}
               />
-              <hr />
               <FlatButton
                 label='Remove All'
                 secondary
@@ -106,6 +107,7 @@ class App extends Component {
         {this.state.openDialog &&
           <ErrorSymbol open={this.state.openDialog} closeDialog={this.handleCloseDialog} />
         }
+        <Footer />
       </div>
     )
   }
