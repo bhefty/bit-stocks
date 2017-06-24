@@ -117,8 +117,7 @@ describe('Server', () => {
         const companySymbol = 'jibber jabber'
         sender.emit('add company', companySymbol)
         receiver.on('add company error', response => {
-          console.log(response)
-          expect(response).to.equal('Please verify that a correct company symbol was entered.')
+          expect(response.error).to.equal('Please verify that a correct company symbol was entered.')
           done()
         })
       })
@@ -137,6 +136,18 @@ describe('Server', () => {
             expect(val.data).to.have.lengthOf.at.least(1)
             done()
           })
+        })
+      })
+    })
+
+    describe('Event: get suggestion', () => {
+      it('should emit suggestion to client', (done) => {
+        const companySymbol = 'FACEBOOK'
+        const expectedSymbol = 'FB'
+        sender.emit('get suggestion', companySymbol)
+        receiver.on('get suggestion', symbol => {
+          expect(symbol).to.equal(expectedSymbol)
+          done()
         })
       })
     })

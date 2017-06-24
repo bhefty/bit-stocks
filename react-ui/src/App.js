@@ -14,7 +14,8 @@ class App extends Component {
     this.state = {
       series: [],
       companies: [],
-      openDialog: false
+      openDialog: false,
+      suggestedSymbol: ''
     }
     this.handleAddStock = this.handleAddStock.bind(this)
     this.handleRemoveStock = this.handleRemoveStock.bind(this)
@@ -53,8 +54,12 @@ class App extends Component {
         this.setState({ series: [company, ...this.state.series] })
       }
     })
-    this.socket.on('add company error', () => {
-      this.handleOpenDialog()
+
+    this.socket.on('add company error', (error) => {
+      this.socket.emit('get suggestion', error.symbol)
+      this.socket.on('get suggestion', symbol => {
+        this.handleOpenDialog(symbol)
+      })
     })
   }
 
@@ -66,12 +71,12 @@ class App extends Component {
     this.socket.emit('remove company', company)
   }
 
-  handleOpenDialog = () => {
-    this.setState({ openDialog: true })
+  handleOpenDialog = (symbol) => {
+    this.setState({ openDialog: true, suggestedSymbol: symbol })
   }
 
   handleCloseDialog = () => {
-    this.setState({ openDialog: false })
+    this.setState({ openDialog: false, suggestedSymbol: '' })
   }
 
   render () {
@@ -104,7 +109,15 @@ class App extends Component {
           }
         </div>
         {this.state.openDialog &&
-          <ErrorSymbol open={this.state.openDialog} closeDialog={this.handleCloseDialog} />
+          <ErrorSymbol
+            open={this.state.openDialog}
+            suggested={this.state.suggestedSymbol}
+            closeDialog={this.handleCloseDialog}
+            closeWithSuggestion={() => {
+              this.handleAddStock(this.state.suggestedSymbol)
+              this.handleCloseDialog()
+            }}
+          />
         }
         <Footer />
       </div>

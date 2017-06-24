@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const socketIo = require('socket.io')
 const storage = require('node-persist')
 const fetchStockData = require('../utils/fetchStockData')
+const fetchStockSuggestion = require('../utils/fetchStockSuggestion')
 const getRandomColor = require('../utils/getRandomColor')
 
 const app = express()
@@ -90,7 +91,18 @@ io.on('connection', socket => {
         // Persist new company data to list
         storage.setItem(companyData.name, companyData)
       } else {
-        io.emit('add company error', data.error)
+        io.emit('add company error', { error: data.error, symbol: companySymbol })
+      }
+    })
+  })
+
+  // Get suggestion for company if invalid symbol is provided
+  socket.on('get suggestion', companySymbol => {
+    fetchStockSuggestion(companySymbol).then((symbol) => {
+      if (!symbol.error) {
+        io.emit('get suggestion', symbol)
+      } else {
+        io.emit('get suggestion', 'No suggestion')
       }
     })
   })

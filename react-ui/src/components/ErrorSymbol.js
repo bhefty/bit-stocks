@@ -4,17 +4,29 @@ import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 
 const ErrorSymbol = props => {
+  let actions = [
+    <FlatButton
+      label='Dismiss'
+      primary
+      onTouchTap={props.closeDialog}
+    />
+  ]
+
+  if (props.suggested !== 'No suggestion') {
+    actions.unshift(
+      <FlatButton
+        label={`Suggestion: ${props.suggested}`}
+        primary
+        onTouchTap={props.closeWithSuggestion}
+      />
+    )
+  }
+
   return (
     <Dialog
       open={props.open}
       modal={false}
-      actions={[
-        <FlatButton
-          label='Okay'
-          primary
-          onTouchTap={props.closeDialog}
-        />
-      ]}
+      actions={actions}
       onRequestClose={props.closeDialog}
     >
       Please verify that a correct company symbol was entered.
@@ -24,7 +36,9 @@ const ErrorSymbol = props => {
 
 ErrorSymbol.propTypes = {
   open: PropTypes.bool.isRequired,
-  closeDialog: PropTypes.func.isRequired
+  closeDialog: PropTypes.func.isRequired,
+  closeWithSuggestion: PropTypes.func.isRequired,
+  suggested: PropTypes.string.isRequired
 }
 
 export default ErrorSymbol
