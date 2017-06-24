@@ -52,15 +52,19 @@ io.on('connection', socket => {
       storageValues.map(company => {
         // Get updated stock data for company
         fetchStockData(company.name).then(data => {
-          const companyData = {
-            name: company.name,
-            data,
-            tooltip: { valueDecimals: 2 },
-            color: getRandomColor()
-          }
+          if (!data.error) {
+            const companyData = {
+              name: company.name,
+              data,
+              tooltip: { valueDecimals: 2 },
+              color: getRandomColor()
+            }
 
-          // Send initial stock data to front-end
-          io.emit('company stock', companyData)
+            // Send initial stock data to front-end
+            io.emit('company stock', companyData)
+          } else {
+            io.emit('add company error', data.error)
+          }
         })
       })
     } else {
@@ -71,19 +75,23 @@ io.on('connection', socket => {
   // Listen for which company to fetch stock data
   socket.on('add company', companySymbol => {
     fetchStockData(companySymbol).then((data) => {
-      // Create object with company information
-      const companyData = {
-        name: companySymbol,
-        data,
-        tooltip: { valueDecimals: 2 },
-        color: getRandomColor()
+      if (!data.error) {
+        // Create object with company information
+        const companyData = {
+          name: companySymbol,
+          data,
+          tooltip: { valueDecimals: 2 },
+          color: getRandomColor()
+        }
+
+        // Send company stock data back to front-end
+        io.emit('company stock', companyData)
+
+        // Persist new company data to list
+        storage.setItem(companyData.name, companyData)
+      } else {
+        io.emit('add company error', data.error)
       }
-
-      // Send company stock data back to front-end
-      io.emit('company stock', companyData)
-
-      // Persist new company data to list
-      storage.setItem(companyData.name, companyData)
     })
   })
 })

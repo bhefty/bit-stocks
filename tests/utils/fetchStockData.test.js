@@ -56,8 +56,8 @@ describe('fetchStockData', () => {
   }))
 
   it('should return an error message if an incorrect symbol is given', mochaAsync(async () => {
-    const expectedResponse = { message: 'Please verify that a correct company symbol was entered.' }
+    const expectedResponse = { error: 'Please verify that a correct company symbol was entered.' }
     const response = await fetchStockData('MT')
-    expect(response.message).to.equal(expectedResponse.message)
+    expect(response.error).to.equal(expectedResponse.error)
   }))
 })

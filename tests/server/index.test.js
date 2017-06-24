@@ -113,6 +113,16 @@ describe('Server', () => {
         })
       })
 
+      it('should handle error if stock symbol is incorrent', (done) => {
+        const companySymbol = 'jibber jabber'
+        sender.emit('add company', companySymbol)
+        receiver.on('add company error', response => {
+          console.log(response)
+          expect(response).to.equal('Please verify that a correct company symbol was entered.')
+          done()
+        })
+      })
+
       it('should store company stock in storage to persist data', (done) => {
         const testData = {
           name: 'AAPL',
